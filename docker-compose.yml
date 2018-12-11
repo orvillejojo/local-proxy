@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  local-proxy:
+    container_name: local-proxy
+    image: codekitchen/dinghy-http-proxy
+    environment:
+      - DNS_IP=127.0.0.1
+      - CONTAINER_NAME=local-proxy
+      - CORS_ENABLED=true
+    ports:
+      - "80:80"
+      - "443:443"
+      - "19322:19322/udp"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ~/.dinghy/certs:/etc/nginx/certs
+    restart: always
